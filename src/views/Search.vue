@@ -1,31 +1,26 @@
 <script>
 
-import { onMounted, reactive } from "vue"
-import axios from 'axios'
-
-const URL = "https://api.lmiforall.org.uk/api/v1/vacancies/search?limit=10&keywords=Developer";
+import { onMounted, ref, watch } from "vue"
+import { useSearch } from "../helpers/useSearch";
 
 export default {
 
   components: {},
 
   setup() {
-    const data = reactive({
-      results: [],
-    });
+
+    const search = useSearch();
+
+    const keyword = ref('developer');
+
+    watch(keyword, () => {
+
+      search.find(keyword);
+    })
 
     onMounted(async () => {
 
-      try {
-
-        let response = await axios.get(URL);
-
-        data.results = response.data
-
-      } catch (e) {
-
-        console.log(e);
-      }
+      await search.find(keyword);
     })
 
     function toHumanReadable(iso) {
@@ -38,8 +33,10 @@ export default {
     }
 
     return {
-      data,
-      toHumanReadable
+      results: search.results,
+      isWorking: search.isWorking,
+      toHumanReadable,
+      keyword
     }
   }
 
@@ -50,17 +47,24 @@ export default {
 
   <div class="container mx-auto p-4">
 
-    <h1 class="text-4xl font-bold mt-8">
-      Developer Jobs
+    <h1 class="text-4xl font-bold mt-8 mb-6">
+      IT Jobs
     </h1>
 
-    <div v-if="data.results.length === 0">
-      LOADING...
+    <select v-model="keyword" class="block w-full mx-2 p-2">
+      <option disabled value="">Please select one</option>
+      <option value="developer">Developer</option>
+      <option value="content+writer">Content Writer</option>
+      <option value="product+lead">Product Lead</option>
+    </select>
+
+    <div v-if="results.length === 0 || isWorking" class="m-4">
+      Loading
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 
-      <a v-for="result in data.results" :key="result.id" :href="result.link"
+      <a v-for="result in results" :key="result.id" :href="result.link"
          class="rounded shadow p-4" target="_blank"
       >
 
