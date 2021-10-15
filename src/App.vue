@@ -2,6 +2,7 @@
 
 import { ref } from 'vue';
 import Logo from './components/Logo';
+import { useRouter } from "vue-router";
 
 export default {
 
@@ -10,8 +11,18 @@ export default {
   },
 
   setup() {
+
+    const router = useRouter();
+
+    const showMenu = ref(false);
+
+    const navigateTo = path => router.push({path}).then(() => {
+      showMenu.value = false;
+    });
+
     return {
-      showMenu: ref(false)
+      showMenu,
+      navigateTo
     }
   }
 }
@@ -28,7 +39,7 @@ export default {
 
       <button @click="showMenu = !showMenu" class="px-3">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
 
@@ -37,10 +48,10 @@ export default {
     <ul v-if="showMenu" class="p-2 border-b">
 
       <li>
-        <router-link to="/">Home</router-link>
+        <a @click="navigateTo('/')">Home</a>
       </li>
       <li>
-        <router-link to="/search">Search</router-link>
+        <a @click="navigateTo('/search')">Search</a>
       </li>
 
     </ul>
