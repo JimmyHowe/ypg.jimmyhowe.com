@@ -48,14 +48,14 @@ export default {
   <div class="container mx-auto p-4">
 
     <h1 class="text-4xl font-bold mt-8 mb-6">
-      IT Jobs
+      Opportunities
     </h1>
 
     <select v-model="keyword" class="block w-full mx-2 p-2">
       <option disabled value="">Please select one</option>
-      <option value="developer">Developer</option>
-      <option value="content+writer">Content Writer</option>
-      <option value="product+lead">Product Lead</option>
+      <option value="vacancies">Vacancies</option>
+      <option value="apprenticeships">Apprenticeships</option>
+      <option value="courses">Courses</option>
     </select>
 
     <div v-if="results.length === 0 || isWorking" class="m-4">
