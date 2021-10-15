@@ -2,6 +2,7 @@
 
 import { onMounted, ref, watch } from "vue"
 import { useSearch } from "../helpers/useSearch";
+import { useDateHelpers } from "../helpers/useDateHelpers";
 
 export default {
 
@@ -10,6 +11,12 @@ export default {
   setup() {
 
     const search = useSearch();
+    const dateHelpers = useDateHelpers();
+
+    const toHumanReadable = (iso) => {
+
+      return dateHelpers.toHumanReadable(iso);
+    }
 
     const keyword = ref('developer');
 
@@ -22,15 +29,6 @@ export default {
 
       await search.find(keyword);
     })
-
-    function toHumanReadable(iso) {
-      try {
-
-        return new Date(iso).toDateString();
-      } catch (e) {
-        console.log(e.message);
-      }
-    }
 
     return {
       results: search.results,
@@ -51,12 +49,16 @@ export default {
       Opportunities
     </h1>
 
-    <select v-model="keyword" class="block w-full mx-2 p-2">
+    <hr class="my-4">
+
+    <select v-model="keyword" class="block w-full my-2 p-2">
       <option disabled value="">Please select one</option>
       <option value="vacancies">Vacancies</option>
       <option value="apprenticeships">Apprenticeships</option>
       <option value="courses">Courses</option>
     </select>
+
+    <hr class="my-4">
 
     <div v-if="results.length === 0 || isWorking" class="m-4">
       Loading
