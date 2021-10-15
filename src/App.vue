@@ -16,12 +16,24 @@ export default {
 
     const showMenu = ref(false);
 
+    const menu = [
+      {
+        path: '/',
+        name: 'Home'
+      },
+      {
+        path: '/search',
+        name: 'Search'
+      }
+    ];
+
     const navigateTo = path => router.push({path}).then(() => {
       showMenu.value = false;
     });
 
     return {
       showMenu,
+      menu,
       navigateTo
     }
   }
@@ -45,13 +57,10 @@ export default {
 
     </div>
 
-    <ul v-if="showMenu" class="p-2 border-b">
+    <ul v-if="showMenu" class="p-2 border-b text-center">
 
-      <li>
-        <a @click="navigateTo('/')">Home</a>
-      </li>
-      <li>
-        <a @click="navigateTo('/search')">Search</a>
+      <li v-for="item in menu" :key="item.path" class="px-2 py-1">
+        <a @click="navigateTo(item.path)">{{ item.name }}</a>
       </li>
 
     </ul>
