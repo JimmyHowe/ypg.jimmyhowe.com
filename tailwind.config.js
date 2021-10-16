@@ -6,7 +6,13 @@ module.exports = {
   purge: false,
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'ypg-yellow': '#f7c01a',
+        'ypg-purple': '#c8acba',
+        'ypg-blue': '#60a5fa',
+      }
+    },
   },
   variants: {
     extend: {},
