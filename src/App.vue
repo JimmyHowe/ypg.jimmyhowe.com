@@ -1,8 +1,8 @@
 <script>
 
-import { ref } from 'vue';
 import Logo from './components/Logo';
 import { useRouter } from "vue-router";
+import { useMainNavigation } from "./helpers/useMainNavigation";
 
 export default {
 
@@ -13,27 +13,15 @@ export default {
   setup() {
 
     const router = useRouter();
-
-    const showMenu = ref(false);
-
-    const menu = [
-      {
-        path: '/',
-        name: 'Home'
-      },
-      {
-        path: '/search',
-        name: 'Search'
-      }
-    ];
+    const mainNavigation = useMainNavigation();
 
     const navigateTo = path => router.push({path}).then(() => {
-      showMenu.value = false;
+      mainNavigation.showMenu.value = false;
     });
 
     return {
-      showMenu,
-      menu,
+      showMenu: mainNavigation.showMainMenu,
+      menu: mainNavigation.mainMenu,
       navigateTo
     }
   }
@@ -57,15 +45,17 @@ export default {
 
     </div>
 
-    <ul v-if="showMenu" class="p-2 border-b text-center">
+    <div class="flex flex-row bg-white flex-grow p-4">
 
-      <li v-for="item in menu" :key="item.path" class="px-2 py-1">
-        <a @click="navigateTo(item.path)">{{ item.name }}</a>
-      </li>
+      <div class="hidden md:flex flex-shrink-0">
+        <ul class="p-2 text-center w-64">
 
-    </ul>
+          <li v-for="item in menu" :key="item.path" class="px-2 py-1">
+            <a @click="navigateTo(item.path)">{{ item.name }}</a>
+          </li>
 
-    <div class="flex bg-white flex-grow p-4">
+        </ul>
+      </div>
 
       <router-view></router-view>
 

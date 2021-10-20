@@ -32,7 +32,7 @@ export default {
 
     return {
       links,
-      getColor
+      getColor,
     }
   }
 };
@@ -41,31 +41,35 @@ export default {
 
 <template>
 
-  <div class="home w-full space-y-4">
+  <div>
 
-    <p>Demonstration PWA</p>
+    <div class="w-full space-y-4">
 
-    <div class="space-y-4 md:space-y-0 md:gap-4 md:grid md:grid-cols-3">
+      <p>Demonstration PWA</p>
 
-      <router-link v-for="(link, index) in links" :key="link.path" :to="link.path"
-                   class="flex w-full border rounded-lg h-32 space-x-4 overflow-hidden shadow"
-      >
+      <div class="space-y-4 md:space-y-0 md:gap-4 md:grid md:grid-cols-3">
 
-        <div :class="getColor(index)" class="w-4 flex-shrink-0"></div>
+        <router-link v-for="(link, index) in links" :key="link.path" :to="link.path"
+                     class="flex w-full border rounded-lg h-32 space-x-4 overflow-hidden shadow"
+        >
 
-        <div class="pr-4">
+          <div :class="getColor(index)" class="w-4 flex-shrink-0"></div>
 
-          <h2 class="mt-4 mb-2 font-bold">
-            {{ link.name }}
-          </h2>
+          <div class="pr-4">
 
-          <p>
-            {{ link.description }}
-          </p>
+            <h2 class="mt-4 mb-2 font-bold">
+              {{ link.name }}
+            </h2>
 
-        </div>
+            <p>
+              {{ link.description }}
+            </p>
 
-      </router-link>
+          </div>
+
+        </router-link>
+
+      </div>
 
     </div>
 
