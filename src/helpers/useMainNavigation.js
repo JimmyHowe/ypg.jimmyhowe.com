@@ -8,6 +8,10 @@ export function useMainNavigation() {
             name: 'Home'
         },
         {
+            path: '/instructions',
+            name: 'Instructions'
+        },
+        {
             path: '/search',
             name: 'Search'
         }
