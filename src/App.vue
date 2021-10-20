@@ -15,9 +15,12 @@ export default {
     const router = useRouter();
     const mainNavigation = useMainNavigation();
 
-    const navigateTo = path => router.push({path}).then(() => {
-      mainNavigation.showMenu.value = false;
-    });
+    const navigateTo = async path => {
+
+      await router.push({path});
+
+      mainNavigation.showMainMenu.value = false;
+    };
 
     return {
       showMenu: mainNavigation.showMainMenu,
@@ -37,7 +40,7 @@ export default {
 
       <Logo></Logo>
 
-      <ul class="flex space-x-4">
+      <ul class="hidden md:flex space-x-4">
         <li v-for="item in menu" :key="item.path" class="cursor-pointer" @click="navigateTo(item.path)">
           {{ item.name }}
         </li>
@@ -50,6 +53,12 @@ export default {
       </button>
 
     </div>
+
+    <ul v-show="showMenu" class="border-b p-4 text-center space-y-2">
+      <li v-for="item in menu" :key="item.path" class="cursor-pointer" @click="navigateTo(item.path)">
+        {{ item.name }}
+      </li>
+    </ul>
 
     <div class="flex flex-grow">
 
