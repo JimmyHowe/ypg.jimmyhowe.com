@@ -45,19 +45,11 @@ export default {
 
     </div>
 
-    <div class="flex flex-row bg-white flex-grow p-4">
+    <div class="flex flex-grow">
 
-      <div class="hidden md:flex flex-shrink-0">
-        <ul class="p-2 text-center w-64">
-
-          <li v-for="item in menu" :key="item.path" class="px-2 py-1">
-            <a @click="navigateTo(item.path)">{{ item.name }}</a>
-          </li>
-
-        </ul>
+      <div class="container mx-auto max-w-screen-lg mt-8 px-4">
+        <router-view></router-view>
       </div>
-
-      <router-view></router-view>
 
     </div>
 
