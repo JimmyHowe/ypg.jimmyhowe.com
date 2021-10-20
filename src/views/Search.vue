@@ -18,7 +18,7 @@ export default {
       return dateHelpers.toHumanReadable(iso);
     }
 
-    const keyword = ref('developer');
+    const keyword = ref('vacancies');
 
     watch(keyword, () => {
 
@@ -67,7 +67,7 @@ export default {
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 
       <a v-for="result in results" :key="result.id" :href="result.link"
-         class="rounded shadow p-4" target="_blank"
+         class="rounded shadow p-4" target="_self"
       >
 
         <div class="text-gray-500 text-sm">
