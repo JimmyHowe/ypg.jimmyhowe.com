@@ -6,6 +6,7 @@ module.exports = {
         name: "Young Persons Guarantee",
         short_name: "YPG",
         themeColor: "#f7c01a",
+        workboxPluginMode: 'GenerateSW',
         workboxOptions: {
             skipWaiting: true
         }
